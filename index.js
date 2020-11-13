@@ -86,7 +86,8 @@ const sortDataByYear = (request, response) => {
     console.log(`Query received: ${query}`);
 
     // Filter out the objects that are not having year key
-    const sightingsFiltered = data.sightings.filter((element) => (('YEAR' in element) && (!Number.isNaN(Number(element.YEAR))) && (element.YEAR !== null)));
+    // const sightingsFiltered = data.sightings.filter((element) => (('YEAR' in element) && (!Number.isNaN(Number(element.YEAR))) && (element.YEAR !== null)));
+    const sightingsFiltered = data.sightings.filter((element) => (('YEAR' in element) && (!isNaN(Number(element.YEAR))) && element.YEAR != null));
 
     // Sorting the filtered sightings array
     sightingsFiltered.sort((first, second) => {
