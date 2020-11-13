@@ -8,6 +8,19 @@ const app = express();
 // set the library (template engine || view engine) to use for all requests
 app.set('view engine', 'ejs');
 
+const whenBaseIndexPageRequest = (request, response) => {
+  console.log('Request came in');
+
+  read('data.json', (data, error) => {
+    if (error) {
+      response.send(`Error occurred: ${error}`);
+      return;
+    }
+
+    // if no error, render the data of data.json
+    response.render('base-index-page', data);
+  });
+};
 const whenIncomingRequest = (request, response) => {
   console.log('Request came in');
 
@@ -40,6 +53,7 @@ const whenIncomingRequest = (request, response) => {
   });
 };
 
+// not related to 3.ICE.1 yet
 const createHTMLResponse = (request, response) => {
   console.log('Request came in');
 
@@ -63,6 +77,7 @@ const createHTMLResponse = (request, response) => {
   });
 };
 
+// not related to 3.ICE.1 yet
 const findReportsForAYear = (request, response) => {
   console.log('Request came in');
 
@@ -94,6 +109,7 @@ const findReportsForAYear = (request, response) => {
   });
 };
 
+// not related to 3.ICE.1 yet
 const sortDataByYear = (request, response) => {
   console.log('Request came in');
 
@@ -133,9 +149,10 @@ const sortDataByYear = (request, response) => {
   });
 };
 
+app.get('/', whenBaseIndexPageRequest);
 app.get('/sightings/:index', whenIncomingRequest);
 // app.get('/sightings/:index', createHTMLResponse);
 app.get('/year-sightings/:year', findReportsForAYear);
-
 app.get('/year-sightings', sortDataByYear);
+
 app.listen(PORT);

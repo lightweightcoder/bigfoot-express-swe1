@@ -1,0 +1,11 @@
+<body>
+  <a href="/?sortby=year">sort by year</a>
+  <a href="/?sortby=state">sort by state</a>
+<ul>
+    <% sightings.forEach((sighting) => { %>
+    <% if(sighting.YEAR) { %>
+    <li><a  href= "/year-sightings/<%=sighting.YEAR%>"> <%=sighting.YEAR%> </a> </li>
+    <% } %>
+  <%})%> 
+</ul>
+</body>
