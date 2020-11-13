@@ -8,6 +8,7 @@ const app = express();
 // set the library (template engine || view engine) to use for all requests
 app.set('view engine', 'ejs');
 
+// callback to render all the data from data.json to base-index-page.ejs
 const whenBaseIndexPageRequest = (request, response) => {
   console.log('Request came in');
 
@@ -22,6 +23,8 @@ const whenBaseIndexPageRequest = (request, response) => {
   });
 };
 
+// callback to render the sighting data coressponding to the sighting index requested
+// render to sightings.ejs
 const whenIncomingRequest = (request, response) => {
   console.log('Request came in');
 
@@ -82,7 +85,8 @@ const createHTMLResponse = (request, response) => {
   });
 };
 
-// not related to 3.ICE.1 yet
+// callback to render the sighting data (reports) coressponding to the sighting year requested
+// render to year-sightings.ejs
 const findReportsForAYear = (request, response) => {
   console.log('Request came in');
 
@@ -92,21 +96,32 @@ const findReportsForAYear = (request, response) => {
       return;
     }
 
+    // to count how many sightings are there for the requested year
     let counter = 0;
+
     const { year } = request.params;
 
-    const templateData = {}; // {sighting { year: year-value}
+    // data to render to ejs file
+    const templateData = { sightings: [] };
 
-    data.sightings.forEach((sighting) => {
-      if (sighting.YEAR === year)
+    data.sightings.forEach((arrayElement) => {
+      if (arrayElement.YEAR === year)
       {
         counter += 1;
 
-        // stores all the keys and values of the sighting in an object in another object
-        templateData.sightingData += { year: sighting.year };
-        // templateData.sightingData = sighting;
+        // stores the keys (year, state, observed)
+        // and values of the sighting in an object in another object
+        const sighting = {
+          year: arrayElement.YEAR,
+          state: arrayElement.STATE,
+          observed: arrayElement.OBSERVED,
+        };
+
+        templateData.sightings.push(sighting);
       }
     });
+
+    console.log(templateData.sightings);
 
     console.log(`Found ${counter} matching items`);
 

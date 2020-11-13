@@ -2,9 +2,12 @@
   <body>
     <h1>Sighting</h1>
     <ul>
-      <% Object.keys(sightingData).forEach(key => { %>
-      <li><%= key %></li>
-      <li><%= sightingData[key] %></li>
+      <% sightings.forEach(function(sightingObj) { %>
+      <li>
+        <%- `YEAR: ${sightingObj.year} <br />
+        STATE: ${sightingObj.state} <br />
+        OBSERVED: ${sightingObj.observed}` %>
+      </li>
       <% }); %>
     </ul>
   </body>
