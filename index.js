@@ -21,6 +21,7 @@ const whenBaseIndexPageRequest = (request, response) => {
     response.render('base-index-page', data);
   });
 };
+
 const whenIncomingRequest = (request, response) => {
   console.log('Request came in');
 
@@ -37,10 +38,14 @@ const whenIncomingRequest = (request, response) => {
     const sighting = data.sightings[index];
 
     // set the sighting object in another object
-    const templateData = {
-      sighting,
-    };
-    // it is like this:
+    // const templateData = {
+    //   sighting,
+    // }; OR
+    // like this
+    const templateData = {};
+    templateData.sighting = { ...sighting };
+
+    // the above 2 lines are like this:
     // templateData = {
     //   sighting: {
     //     key1: value1,
