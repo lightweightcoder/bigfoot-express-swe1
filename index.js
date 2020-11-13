@@ -41,12 +41,12 @@ const whenIncomingRequest = (request, response) => {
     const sighting = data.sightings[index];
 
     // set the sighting object in another object
-    // const templateData = {
-    //   sighting,
-    // }; OR
-    // like this
-    const templateData = {};
-    templateData.sighting = { ...sighting };
+    const templateData = {
+      sighting,
+    };
+    // OR like this
+    // const templateData = {};
+    // templateData.sighting = { ...sighting };
 
     // the above 2 lines are like this:
     // templateData = {
