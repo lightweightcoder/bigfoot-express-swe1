@@ -2,8 +2,8 @@
   <body>
     <h1>Sighting</h1>
     <ul>
-      <% Object.keys(sighting).forEach(key => { %>
-      <li><%= `${key}: ${sighting[key]}` %></li>
+      <% Object.keys(sighting).forEach(function(key) { %>
+      <li><%= `${key}: ${sighting.key}` %></li>
       <% }); %>
       <!-- for testing purpose -->
       <li><%= `YEAR: ${sighting.YEAR}` %></li>
