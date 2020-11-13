@@ -29,9 +29,10 @@ const whenIncomingRequest = (request, response) => {
     };
     // it is like this:
     // templateData = {
-    //   {
-    //     keys: value,
-    //     keys: value,
+    //   sighting: {
+    //     key1: value1,
+    //     key2: value2,
+    //     etc
     //   }
     // }
 
