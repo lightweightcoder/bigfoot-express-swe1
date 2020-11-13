@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <h1>Sighting</h1>
+    <ul>
+      <% Object.keys(sightingData).forEach(key => { %>
+      <li><%= key %></li>
+      <li><%= sightingData[key] %></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

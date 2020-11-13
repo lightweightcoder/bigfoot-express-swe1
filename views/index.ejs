@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <h1><%= header.header1 %></h1>
+    <h2><%= user.name %></h2>
+    <p>Fruit: <%= fruit %></p>
+    <ul>
+      <% users.forEach(function(user){ %>
+      <li><%= user.name %></li>
+      <% }); %>
+    </ul>
+  </body>
+</html>

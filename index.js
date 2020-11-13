@@ -5,6 +5,9 @@ const PORT = 3004;
 
 const app = express();
 
+// set the library (template engine || view engine) to use for all requests
+app.set('view engine', 'ejs');
+
 const whenIncomingRequest = (request, response) => {
   console.log('Request came in');
 
@@ -14,10 +17,18 @@ const whenIncomingRequest = (request, response) => {
       return;
     }
 
+    // get the index of the sighting
     const { index } = request.params;
-    const chosenItem = data.sightings[index];
-    // console.log(chosenItem);
-    response.send(chosenItem);
+
+    // get the sighting object coressponding to the index
+    const sighting = data.sightings[index];
+
+    // set the sighting object in another object
+    const templateData = {
+      sighting,
+    };
+
+    response.render('sightings', templateData);
   });
 };
 
@@ -53,21 +64,25 @@ const findReportsForAYear = (request, response) => {
       return;
     }
 
-    let responseData = '';
     let counter = 0;
     const { year } = request.params;
-    data.sightings.forEach((element) => {
-      if (element.YEAR === year)
+
+    const templateData = {}; // {sighting { year: year-value}
+
+    data.sightings.forEach((sighting) => {
+      if (sighting.YEAR === year)
       {
         counter += 1;
-        responseData += `YEAR: ${element.YEAR}, STATE: ${element.STATE} <br>`;
+
+        // stores all the keys and values of the sighting in an object in another object
+        templateData.sightingData += { year: sighting.year };
+        // templateData.sightingData = sighting;
       }
     });
 
-    const content = `<html><body><h1>hello</h1><p>${responseData}</p></body></html>`;
-    console.log(responseData);
     console.log(`Found ${counter} matching items`);
-    response.send(content);
+
+    response.render('year-sightings', templateData);
   });
 };
 
@@ -80,13 +95,10 @@ const sortDataByYear = (request, response) => {
       return;
     }
 
-    const responseData = '';
-
     const query = request.query.sort;
     console.log(`Query received: ${query}`);
 
     // Filter out the objects that are not having year key
-    // const sightingsFiltered = data.sightings.filter((element) => (('YEAR' in element) && (!Number.isNaN(Number(element.YEAR))) && (element.YEAR !== null)));
     const sightingsFiltered = data.sightings.filter((element) => (('YEAR' in element) && (!isNaN(Number(element.YEAR))) && element.YEAR != null));
 
     // Sorting the filtered sightings array
@@ -113,9 +125,9 @@ const sortDataByYear = (request, response) => {
   });
 };
 
-// app.get('/sightings/:index', whenIncomingRequest);
+app.get('/sightings/:index', whenIncomingRequest);
 // app.get('/sightings/:index', createHTMLResponse);
-// app.get('/year-sightings/:year', findReportsForAYear);
+app.get('/year-sightings/:year', findReportsForAYear);
 
 app.get('/year-sightings', sortDataByYear);
 app.listen(PORT);
