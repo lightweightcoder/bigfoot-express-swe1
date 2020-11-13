@@ -27,6 +27,13 @@ const whenIncomingRequest = (request, response) => {
     const templateData = {
       sighting,
     };
+    // it is like this:
+    // templateData = {
+    //   {
+    //     keys: value,
+    //     keys: value,
+    //   }
+    // }
 
     response.render('sightings', templateData);
   });

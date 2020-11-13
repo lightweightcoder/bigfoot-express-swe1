@@ -3,9 +3,10 @@
     <h1>Sighting</h1>
     <ul>
       <% Object.keys(sighting).forEach(key => { %>
-      <li><%= key %></li>
-      <li><%= sighting[key] %></li>
+      <li><%= `${key}: ${sighting[key]}` %></li>
       <% }); %>
+      <!-- for testing purpose -->
+      <li><%= `YEAR: ${sighting.YEAR}` %></li>
     </ul>
   </body>
 </html>
