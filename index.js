@@ -121,8 +121,6 @@ const findReportsForAYear = (request, response) => {
       }
     });
 
-    console.log(templateData.sightings);
-
     console.log(`Found ${counter} matching items`);
 
     response.render('year-sightings', templateData);
