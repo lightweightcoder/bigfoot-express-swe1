@@ -157,6 +157,8 @@ app.get('/year-sightings', sortDataByYear);
 // end of functions for 3.ICE.1 and 3.ICE.2 =====================================
 // ==============================================================================
 
+// start of functions for 3.ICE.3 ==============================================
+// =============================================================================
 // app.post - accept form request
 app.post('/update-json', (request, response) => {
   console.log(request.body);
@@ -183,5 +185,8 @@ app.post('/update-json', (request, response) => {
 app.get('/update-json', (request, response) => {
   response.render('form');
 });
+
+// end of functions for 3.ICE.3 =================================================
+// ==============================================================================
 
 app.listen(PORT);
