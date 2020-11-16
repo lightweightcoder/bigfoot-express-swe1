@@ -8,6 +8,9 @@ const app = express();
 // set the library (template engine || view engine) to use for all requests
 app.set('view engine', 'ejs');
 
+// start of functions for 3.ICE.1 and 3.ICE.2 =====================================
+// ================================================================================
+
 // callback to render all the data from data.json to base-index-page.ejs
 const whenBaseIndexPageRequest = (request, response) => {
   console.log('Request came in');
@@ -61,30 +64,6 @@ const whenIncomingRequest = (request, response) => {
   });
 };
 
-// not related to 3.ICE.2 yet
-const createHTMLResponse = (request, response) => {
-  console.log('Request came in');
-
-  console.log('Request: ', request);
-  console.log('Response: ', response);
-
-  read('data.json', (data, error) => {
-    if (error) {
-      response.send(`Error occurred: ${error}`);
-      return;
-    }
-
-    const { index } = request.params;
-    const chosenItem = data.sightings[index];
-    console.log(chosenItem);
-
-    const content = `<html><body><h1>hello</h1><p>YEAR: ${chosenItem.YEAR}
-    <br>STATE: ${chosenItem.STATE} <br> OBSERVED: ${chosenItem.OBSERVED}</p></body></html>`;
-
-    response.send(content);
-  });
-};
-
 // callback to render the sighting data (reports) coressponding to the sighting year requested
 // render to year-sightings.ejs
 const findReportsForAYear = (request, response) => {
@@ -127,7 +106,7 @@ const findReportsForAYear = (request, response) => {
   });
 };
 
-// not related to 3.ICE.2 yet
+// sort data by year (ascending or descending) according to query
 const sortDataByYear = (request, response) => {
   console.log('Request came in');
 
@@ -169,8 +148,10 @@ const sortDataByYear = (request, response) => {
 
 app.get('/', whenBaseIndexPageRequest);
 app.get('/sightings/:index', whenIncomingRequest);
-// app.get('/sightings/:index', createHTMLResponse);
 app.get('/year-sightings/:year', findReportsForAYear);
 app.get('/year-sightings', sortDataByYear);
+
+// end of functions for 3.ICE.1 and 3.ICE.2 =====================================
+// ==============================================================================
 
 app.listen(PORT);
