@@ -170,7 +170,12 @@ app.post('/update-json', (request, response) => {
     }
 
     // send back an acknowledgement
-    response.send('done adding new sighting!');
+    // response.send('done adding new sighting!');
+
+    const lastIndex = data.sightings.length - 1;
+
+    // redirect the user to the new sighting that he inputted in the form
+    response.redirect(`/sightings/${lastIndex}`);
   });
 });
 
