@@ -1,5 +1,5 @@
 import express from 'express';
-import { read } from './jsonFileStorage.js';
+import { add, read } from './jsonFileStorage.js';
 
 const PORT = 3004;
 
@@ -7,6 +7,9 @@ const app = express();
 
 // set the library (template engine || view engine) to use for all requests
 app.set('view engine', 'ejs');
+
+// config to accept request form data
+app.use(express.urlencoded({ extended: false }));
 
 // start of functions for 3.ICE.1 and 3.ICE.2 =====================================
 // ================================================================================
@@ -153,5 +156,27 @@ app.get('/year-sightings', sortDataByYear);
 
 // end of functions for 3.ICE.1 and 3.ICE.2 =====================================
 // ==============================================================================
+
+// app.post - accept form request
+app.post('/update-json', (request, response) => {
+  console.log(request.body);
+
+  // add the new sighting to the array of sightings in data.json
+  add('data.json', 'sightings', request.body, (data, error) => {
+    // check for errors
+    if (error) {
+      response.status(500).send('sorry this didnt work');
+      return;
+    }
+
+    // send back an acknowledgement
+    response.send('done adding new sighting!');
+  });
+});
+
+// render the form that will create the request
+app.get('/update-json', (request, response) => {
+  response.render('form');
+});
 
 app.listen(PORT);
