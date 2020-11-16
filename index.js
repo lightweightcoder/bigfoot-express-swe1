@@ -61,7 +61,7 @@ const whenIncomingRequest = (request, response) => {
   });
 };
 
-// not related to 3.ICE.1 yet
+// not related to 3.ICE.2 yet
 const createHTMLResponse = (request, response) => {
   console.log('Request came in');
 
@@ -127,7 +127,7 @@ const findReportsForAYear = (request, response) => {
   });
 };
 
-// not related to 3.ICE.1 yet
+// not related to 3.ICE.2 yet
 const sortDataByYear = (request, response) => {
   console.log('Request came in');
 
